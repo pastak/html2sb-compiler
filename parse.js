@@ -27,6 +27,15 @@ function parseSimple (variant, context, node) {
   return result
 }
 
+function parseHeader (enlarge, context, node) {
+  context.children.push({
+    type: 'br'
+  })
+  var simpleNode = parseSimple(null, context, node)
+  simpleNode.bold = true
+  simpleNode.enlarge = enlarge
+}
+
 function traditionalCodeBlock (context, node) {
   context.children.push({
     type: 'code',
@@ -233,6 +242,11 @@ var tags = {
   'font': parseStyle,
   'code': traditionalCodeBlock,
   'pre': traditionalCodeBlock,
+  'h1': parseHeader.bind(null, 5),
+  'h2': parseHeader.bind(null, 4),
+  'h3': parseHeader.bind(null, 3),
+  'h4': parseHeader.bind(null, 2),
+  'h5': parseHeader.bind(null, 1),
   'ol': list.bind(null, 'ol'),
   'ul': list.bind(null, 'ul'),
   'div': function (context, node) {

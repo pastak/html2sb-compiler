@@ -14,6 +14,16 @@
     { "type": "text", "text": "Header 1", "bold": true, "enlarge": 4 },
     { "type": "br" },
     { "type": "text", "text": "Header 0", "bold": true, "enlarge": 5 },
-    { "type": "br" }
+    { "type": "br" },
+    { "type": "br" },
+    { "type": "text", "text": "Header 0", "bold": true, "enlarge": 5 },
+    { "type": "br" },
+    { "type": "text", "text": "Header 1", "bold": true, "enlarge": 4 },
+    { "type": "br" },
+    { "type": "text", "text": "Header 2", "bold": true, "enlarge": 3 },
+    { "type": "br" },
+    { "type": "text", "text": "Header 3", "bold": true, "enlarge": 2 },
+    { "type": "br" },
+    { "type": "text", "text": "Header 4", "bold": true, "enlarge": 1 }
   ]
 }
