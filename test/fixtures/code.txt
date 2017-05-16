@@ -14,3 +14,10 @@ code:_
 	  let y = b * 2
 	  return x * y
 	}
+
+muxa
+code:_
+	function foo () {}
+
+code:_
+	function bar () {}

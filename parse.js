@@ -27,6 +27,13 @@ function parseSimple (variant, context, node) {
   return result
 }
 
+function traditionalCodeBlock (context, node) {
+  context.children.push({
+    type: 'code',
+    text: trim(firstChildContent(node))
+  })
+}
+
 function list (variant, context, node) {
   var result = {
     type: 'list',
@@ -224,6 +231,8 @@ var tags = {
   },
   'span': parseStyle,
   'font': parseStyle,
+  'code': traditionalCodeBlock,
+  'pre': traditionalCodeBlock,
   'ol': list.bind(null, 'ol'),
   'ul': list.bind(null, 'ul'),
   'div': function (context, node) {
