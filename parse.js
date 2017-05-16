@@ -6,7 +6,9 @@ var trim = require('lodash.trim')
 function parseSimple (variant, context, node) {
   var children
   if (node.children) {
-    children = parseNodes(node.children).children
+    children = parseNodes(node.children, {
+      options: context.option
+    }).children
   }
   var result = {
     type: 'text',
@@ -16,6 +18,9 @@ function parseSimple (variant, context, node) {
     result.blockquote = 1
   } else if (variant) {
     result[variant] = true
+  }
+  if (!context.children) {
+    context.children = []
   }
   context.children.push(result)
   return result
@@ -102,7 +107,9 @@ var tags = {
     })
   },
   'a': function (context, node) {
-    var childData = parseNodes(node.children)
+    var childData = parseNodes(node.children, {
+      options: context.options
+    })
     context.children.push({
       type: 'link',
       href: node.attribs.href,
@@ -110,21 +117,23 @@ var tags = {
     })
   },
   'note': function (context, node) {
-    node.children.forEach(function (child) {
-      if (child.tagName === 'title') {
-        context.title = child.children[0].content
-      } else if (child.tagName === 'tag') {
-        if (!context.tags) {
-          context.tags = []
+    if (context.options && context.options.evernote) {
+      node.children.forEach(function (child) {
+        if (child.tagName === 'title') {
+          context.title = child.children[0].content
+        } else if (child.tagName === 'tag') {
+          if (!context.tags) {
+            context.tags = []
+          }
+          context.tags.push(child.children[0].content)
+        } else if (child.tagName === 'content') {
+          var contentNodes = parseHTML(child.children[0].content)
+          parseNode(context, {
+            children: contentNodes
+          })
         }
-        context.tags.push(child.children[0].content)
-      } else if (child.tagName === 'content') {
-        var contentNodes = parseHTML(child.children[0].content)
-        parseNode(context, {
-          children: contentNodes
-        })
-      }
-    })
+      })
+    }
   },
   'br': function (context, node) {
     context.children.push({
@@ -139,23 +148,27 @@ var tags = {
   'tr': function (context, node) {
     var result = {
       type: 'tr',
-      children: []
+      children: [],
+      options: context.options
     }
     if (node.children) {
       parseNodes(node.children.filter(function (node) {
         return node.tagName === 'td'
       }), result)
     }
+    delete result.options
     context.children.push(result)
   },
   'table': function (context, node) {
     var result = {
       type: 'table',
-      children: []
+      children: [],
+      options: context.options
     }
     if (node.children) {
       parseNodes(node.children, result)
     }
+    delete result.options
     context.children.push(result)
   },
   'span': parseStyle,
@@ -227,11 +240,8 @@ var tags = {
 }
 
 function parseNodes (nodes, context) {
-  if (!context) {
-    context = {
-      title: null,
-      children: []
-    }
+  if (!context.children) {
+    context.children = []
   }
   parseNode.bind(null, context)
   var checklist = null
@@ -437,8 +447,13 @@ function parseHTML (input) {
   return root.children || []
 }
 
-module.exports = function (input) {
-  var tokens = parseNodes(parseHTML(input))
+module.exports = function (input, options) {
+  var tokens = parseNodes(parseHTML(input), {
+    title: null,
+    options: options || {},
+    children: []
+  })
+  delete tokens.options
   tokens.children = reduceSimpleNodes(tokens.children, tokens)
   // console.log(JSON.stringify(tokens, null, 2))
   return tokens

@@ -10,7 +10,9 @@ function readFixture (file) {
 
 test('fixtures', function (t) {
   function testFixture (file) {
-    const tokens = parse(readFixture(file + '.html'))
+    const tokens = parse(readFixture(file + '.html'), {
+      evernote: true
+    })
     const sb = toScrapbox(tokens)
     const expectedTokens = JSON.parse(readFixture(file + '.json'))
     const expectedOutput = readFixture(file + '.txt')
