@@ -27,6 +27,7 @@ test('fixtures', function (t) {
     'blocks',
     'code',
     'list',
+    'list-in-list',
     'header',
     'hr',
     'table',

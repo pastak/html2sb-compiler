@@ -49,22 +49,48 @@ function toSimpleText (node) {
   return inner
 }
 
+function processList (node, line, indent) {
+  if (!indent) {
+    indent = ''
+  }
+  indent += '\t'
+  var listAsText = node.children
+    .map(function (listEntry, nr) {
+      var children
+      if (listEntry.children) {
+        children = listEntry.children.concat()
+      } else {
+        children = [listEntry]
+      }
+      var lastEntry
+      if (children[children.length - 1].type === 'list') {
+        lastEntry = children.pop()
+      }
+      var data = toSimpleText({
+        type: listEntry.type,
+        checked: listEntry.checked,
+        children: children
+      })
+      if (node.variant === 'ol') {
+        data = indent + (nr + 1) + '. ' + data + '\n'
+      } else {
+        data = indent + data + '\n'
+      }
+      if (lastEntry) {
+        data = data + processList(lastEntry, null, indent) + '\n'
+      }
+      return data
+    })
+    .join('')
+  return listAsText.substr(0, listAsText.length - 1)
+}
+
 var stringifier = {
   'link': function (node, line) {
     line.push(toSimpleText(node))
     return NO_LINE_BREAK
   },
-  'list': function (node, line) {
-    return node.children
-      .map(function (listEntry, nr) {
-        if (node.variant === 'ol') {
-          return '\t' + (nr + 1) + '. ' + toSimpleText(listEntry)
-        } else {
-          return '\t' + toSimpleText(listEntry)
-        }
-      })
-      .join('\n')
-  },
+  'list': processList,
   'hr': function (node, line) {
     return '[/icons/hr.icon]'
   },
@@ -98,6 +124,10 @@ var stringifier = {
   }
 }
 
+function stringify (child, line) {
+  return stringifier[child.type](child, line)
+}
+
 module.exports = function (tokens) {
   var result = []
   if (tokens.title) {
@@ -105,7 +135,7 @@ module.exports = function (tokens) {
   }
   var line = []
   tokens.children.forEach(function (child) {
-    var block = stringifier[child.type](child, line)
+    var block = stringify(child, line)
     if (block === NO_LINE_BREAK) {
       return
     }
@@ -142,6 +172,7 @@ module.exports = function (tokens) {
     }
     return true
   })
+  // console.log(result)
   if (result[result.length - 1] !== '') {
     result.push('')
   }

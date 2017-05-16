@@ -527,7 +527,57 @@
       "children": [
         {
           "type": "text",
-          "text": "cheese"
+          "children": [
+            {
+              "type": "text",
+              "text": "cheese"
+            },
+            {
+              "type": "list",
+              "variant": "ol",
+              "children": [
+                {
+                  "type": "text",
+                  "text": "Camembert"
+                },
+                {
+                  "type": "text",
+                  "text": "Gauda"
+                },
+                {
+                  "type": "text",
+                  "children": [
+                    {
+                      "type": "text",
+                      "text": "Blue Cheese"
+                    },
+                    {
+                      "type": "list",
+                      "variant": "ul",
+                      "children": [
+                        {
+                          "type": "text",
+                          "text": "Roquefort"
+                        },
+                        {
+                          "type": "text",
+                          "text": "Gorgonzola"
+                        },
+                        {
+                          "type": "text",
+                          "text": "Blue Stilton"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "text",
+                  "text": "Emmental"
+                }
+              ]
+            }
+          ]
         },
         {
           "type": "text",

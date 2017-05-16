@@ -31,11 +31,13 @@ function list (variant, context, node) {
   var result = {
     type: 'list',
     variant: variant,
-    children: []
+    children: [],
+    options: context.options
   }
   node.children.forEach(function (child) {
     parseSimple(null, result, child)
   })
+  delete result.options
   context.children.push(result)
 }
 
@@ -238,9 +240,11 @@ var tags = {
       var result = {
         type: 'check',
         checked: checkNode.attribs && /^true$/i.test(checkNode.attribs.checked),
-        children: []
+        children: [],
+        options: context.options
       }
       parseSimple(null, result, checkNode)
+      delete result.options
       context.checkNode = result
       return
     }
@@ -289,7 +293,6 @@ function parseNodes (nodes, context) {
   if (!context.children) {
     context.children = []
   }
-  parseNode.bind(null, context)
   var checklist = null
   var applyChecklist = function (index) {
     if (checklist) {
@@ -478,6 +481,10 @@ function parseHTML (input) {
       })
     },
     onclosetag: function (tagName) {
+      if (current.tagName === tagName) {
+        current = stack.pop()
+        return
+      }
       for (var i = stack.length - 1; i >= 0; i--) {
         if (stack[i].tagName === tagName) {
           while (stack.length > i) {
@@ -485,9 +492,6 @@ function parseHTML (input) {
           }
           return
         }
-      }
-      if (current.tagName === tagName) {
-        current = stack.pop()
       }
       // ignore tags that are ever opened
     }
@@ -501,7 +505,8 @@ function parseHTML (input) {
 }
 
 module.exports = function (input, options) {
-  var tokens = parseNodes(parseHTML(input), {
+  var htmlNodes = parseHTML(input)
+  var tokens = parseNodes(htmlNodes, {
     title: null,
     options: options || {},
     children: []
