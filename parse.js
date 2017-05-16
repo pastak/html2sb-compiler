@@ -230,7 +230,7 @@ var tags = {
     // <en-todo> are inline tags which are super weird.
     // This way .checkNode will be filled somehow.
     if (
-      context.options && context.options.evernote &&
+      context.options.evernote &&
       node.children &&
       node.children.length >= 1 &&
       node.children[0].tagName === 'en-todo'
@@ -252,8 +252,9 @@ var tags = {
     // The fontfamily, namely the Monaco or Consolas font indicates
     // that we are in a code block
     if (
+      context.options.evernote &&
       node.children &&
-      /Monaco|Consolas/.test(style(node, 'font-family'))
+      style(node, '-en-codeblock') === 'true'
     ) {
       var data = []
       node.children.forEach(function (child) {
