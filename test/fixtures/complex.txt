@@ -54,6 +54,9 @@ Links should work as well, to [http://google.com google] for example.
 
 Two images, attached:
 
+[data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAA]
+[data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAs]
+
 And a table
 
 table:_

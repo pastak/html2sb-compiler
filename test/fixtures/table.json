@@ -71,18 +71,8 @@
                  "children": [
                    {
                      "type": "text",
-                     "children": [
-                       {
-                         "type": "link",
-                         "href": "http://test.com",
-                         "children": [
-                           {
-                             "type": "text",
-                             "text": "said"
-                           }
-                         ]
-                       }
-                     ]
+                     "href": "http://test.com",
+                     "text": "said"
                    },
                    {
                      "type": "br"

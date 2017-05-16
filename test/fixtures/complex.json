@@ -150,7 +150,6 @@
     },
     {
       "type": "text",
-      "italic": true,
       "children": [
         {
           "type": "text",
@@ -174,7 +173,8 @@
           "type": "text",
           "text": "."
         }
-      ]
+      ],
+      "italic": true
     },
     {
       "type": "br"
@@ -192,7 +192,6 @@
     },
     {
       "type": "text",
-      "bold": true,
       "children": [
         {
           "type": "text",
@@ -216,7 +215,8 @@
           "type": "text",
           "text": "."
         }
-      ]
+      ],
+      "bold": true
     },
     {
       "type": "br"
@@ -234,7 +234,6 @@
     },
     {
       "type": "text",
-      "underline": true,
       "children": [
         {
           "type": "text",
@@ -267,7 +266,8 @@
           "type": "text",
           "text": "text."
         }
-      ]
+      ],
+      "underline": true
     },
     {
       "type": "br"
@@ -286,9 +286,9 @@
     {
       "type": "text",
       "bold": true,
+      "italic": true,
       "strike": true,
       "underline": true,
-      "italic": true,
       "text": "Super fancy text 1 order: underline, italic, strike-through, bold"
     },
     {
@@ -308,9 +308,9 @@
     {
       "type": "text",
       "bold": true,
+      "italic": true,
       "strike": true,
       "underline": true,
-      "italic": true,
       "text": "Super fancy text 2 order: bold, strike through, italic, underline"
     },
     {
@@ -558,14 +558,9 @@
           "text": "Links should work as well, to"
         },
         {
-          "type": "link",
+          "type": "text",
           "href": "http://google.com",
-          "children": [
-            {
-              "type": "text",
-              "text": "google"
-            }
-          ]
+          "text": "google"
         },
         {
           "type": "text",
@@ -617,23 +612,15 @@
       "type": "br"
     },
     {
-      "type": "text",
-      "children": [
-        {
-          "type": "br"
-        }
-      ]
+      "type": "img",
+      "src": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAA"
     },
     {
       "type": "br"
     },
     {
-      "type": "text",
-      "children": [
-        {
-          "type": "br"
-        }
-      ]
+      "type": "img",
+      "src": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAs"
     },
     {
       "type": "br"
@@ -757,18 +744,8 @@
               "children": [
                 {
                   "type": "text",
-                  "children": [
-                    {
-                      "type": "link",
-                      "href": "http://test.com",
-                      "children": [
-                        {
-                          "type": "text",
-                          "text": "said"
-                        }
-                      ]
-                    }
-                  ]
+                  "href": "http://test.com",
+                  "text": "said"
                 },
                 {
                   "type": "br"

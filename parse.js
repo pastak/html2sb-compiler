@@ -2,12 +2,13 @@
 var HTMLParser = require('htmlparser2/lib/Parser')
 var styleParser = require('style-parser')
 var trim = require('lodash.trim')
+var md5
 
 function parseSimple (variant, context, node) {
   var children
   if (node.children) {
     children = parseNodes(node.children, {
-      options: context.option
+      options: context.options
     }).children
   }
   var result = {
@@ -99,11 +100,27 @@ function style (node, prop) {
   return node.style[prop] || ''
 }
 
+function firstChildContent (node) {
+  if (!node.children) {
+    return
+  }
+  if (node.children.length === 0) {
+    return
+  }
+  return node.children[0].content
+}
+
+function singleNode (type, context, node) {
+  context.children.push({
+    type: type
+  })
+}
+
 var tags = {
   'img': function (context, node) {
     context.children.push({
       type: 'img',
-      href: node.attribs.src
+      src: node.attribs.src
     })
   },
   'a': function (context, node) {
@@ -111,35 +128,67 @@ var tags = {
       options: context.options
     })
     context.children.push({
-      type: 'link',
+      type: 'text',
       href: node.attribs.href,
       children: childData.children
     })
   },
   'note': function (context, node) {
     if (context.options && context.options.evernote) {
+      var content
+      if (!context.options.resources) {
+        context.options.resources = {}
+      }
       node.children.forEach(function (child) {
         if (child.tagName === 'title') {
-          context.title = child.children[0].content
+          context.title = firstChildContent(child)
         } else if (child.tagName === 'tag') {
           if (!context.tags) {
             context.tags = []
           }
-          context.tags.push(child.children[0].content)
+          context.tags.push(firstChildContent(child))
         } else if (child.tagName === 'content') {
-          var contentNodes = parseHTML(child.children[0].content)
-          parseNode(context, {
-            children: contentNodes
+          content = firstChildContent(child)
+        } else if (child.tagName === 'resource') {
+          if (!md5) {
+            // Lazy-load md5 because it is not necessarily required
+            md5 = require('nano-md5')
+          }
+          var resource = {}
+          child.children.forEach(function (resourceChild) {
+            if (resourceChild.tagName === 'data') {
+              resource.encoded = firstChildContent(resourceChild)
+            } else if (resourceChild.tagName === 'mime') {
+              resource.mime = firstChildContent(resourceChild)
+            }
           })
+          if (/^image\/(png|jpeg|gif)$/.test(resource.mime)) {
+            var raw = new Buffer(resource.encoded, 'base64')
+            var hash = md5.fromBytes(raw.toString('latin1')).toHex()
+            context.options.resources[hash] = {
+              type: 'img',
+              src: 'data:' + resource.mime + ';base64,' + resource.encoded
+            }
+          }
         }
       })
+      if (content) {
+        var contentNodes = parseHTML(content)
+        parseNode(context, {
+          children: contentNodes
+        })
+      }
     }
   },
-  'br': function (context, node) {
-    context.children.push({
-      type: 'br'
-    })
+  'en-media': function (context, node) {
+    if (node.attribs && context.options.resources && context.options.evernote) {
+      var resource = context.options.resources[node.attribs.hash]
+      if (resource) {
+        context.children.push(resource)
+      }
+    }
   },
+  'br': singleNode.bind(null, 'br'),
   'td': function (context, node) {
     var simple = parseSimple(null, context, node)
     simple.type = 'td'
@@ -179,6 +228,7 @@ var tags = {
     // <en-todo> are inline tags which are super weird.
     // This way .checkNode will be filled somehow.
     if (
+      context.options && context.options.evernote &&
       node.children &&
       node.children.length >= 1 &&
       node.children[0].tagName === 'en-todo'
@@ -208,7 +258,7 @@ var tags = {
           child.children.length === 1 &&
           child.children[0].type === 'Text'
         ) {
-          data.push(child.children[0].content)
+          data.push(firstChildContent(child))
         }
       })
       context.children.push({
@@ -225,11 +275,7 @@ var tags = {
       type: 'br'
     })
   },
-  'hr': function (context, node) {
-    context.children.push({
-      type: 'hr'
-    })
-  },
+  'hr': singleNode.bind(null, 'hr'),
   'blockquote': parseSimple.bind(null, 'blockquote'),
   'b': parseSimple.bind(null, 'bold'),
   'strong': parseSimple.bind(null, 'bold'),
@@ -345,11 +391,18 @@ function reduceSimpleNodes (tokens, parent) {
       token.type === 'text' &&
       token.children &&
       token.children.length === 1 &&
-      token.children[0].type === 'text'
+      (
+        token.children[0].type === 'text' ||
+        token.children[0].type === 'img'
+      )
     ) {
       var targetToken = token.children[0]
       if (token.href && targetToken.href) {
         return
+      }
+      token.type = targetToken.type
+      if (targetToken.src) {
+        token.src = targetToken.src
       }
       if (targetToken.href) {
         token.href = targetToken.href

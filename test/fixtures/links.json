@@ -2,24 +2,19 @@
   "title": null,
   "children": [
     {
-      "type": "link",
+      "type": "img",
       "href": "http://example.com",
-      "children": [
-        {
-          "type": "img",
-          "href": "http://example.com/example.png"
-        }
-      ]
+      "src": "http://example.com/example.png"
     },
     {
       "type": "br"
     },
     {
       "type": "img",
-      "href": "http://example.com/example2.png"
+      "src": "http://example.com/example2.png"
     },
     {
-      "type": "link",
+      "type": "text",
       "href": "http://example.com",
       "children": [
         {

@@ -4,12 +4,13 @@ var SOFT_LINE_BREAK = true
 
 function toSimpleText (node) {
   if (node.type === 'img') {
-    return node.href
+    if (node.href) {
+      return '[' + node.href + ' ' + node.src + ']'
+    }
+    return '[' + node.src + ']'
   }
+
   var before = ''
-  if (node.href) {
-    before += node.href
-  }
   if (node.bold) {
     before += '*'
   }
@@ -35,10 +36,17 @@ function toSimpleText (node) {
   if (node.type === 'check') {
     check = (node.checked ? '✅' : '⬜') + ' '
   }
+  var inner
   if (before !== '') {
-    return check + '[' + before + ' ' + content + ']'
+    inner = check + '[' + before + ' ' + content + ']'
+  } else {
+    inner = check + content
   }
-  return check + content
+
+  if (node.href) {
+    return '[' + node.href + ' ' + inner + ']'
+  }
+  return inner
 }
 
 var stringifier = {
@@ -75,7 +83,7 @@ var stringifier = {
       }).join('')
   },
   'img': function (node, line) {
-    line.push('[' + node.href + ']')
+    line.push(toSimpleText(node))
     return NO_LINE_BREAK
   },
   'br': function (node, line) {
