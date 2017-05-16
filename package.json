@@ -22,6 +22,7 @@
   "devDependencies": {
     "standard": "^10.0.2",
     "tap-diff": "^0.1.1",
+    "tap-difflet": "^0.7.0",
     "tape": "^4.6.3",
     "tape-watch": "^2.3.0"
   }
