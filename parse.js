@@ -70,7 +70,7 @@ function parseStyle (context, node) {
   var bold = style(node, 'font-weight') === 'bold'
   var italic = /(^|\s)italic(\s|$)/i.test(style(node, 'font-style'))
   var underline = /(^|\s)underline(\s|$)/i.test(style(node, 'text-decoration')) ||
-    style(node, '-evernote-highlight') === 'true'
+    (context.options.evernote && style(node, '-evernote-highlight') === 'true')
   var strikeThrough = /(^|\s)line-through(\s|$)/i.test(style(node, 'text-decoration'))
   var addedNode = parseSimple(null, context, node)
   if (enlarge !== 0) {
