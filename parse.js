@@ -93,6 +93,7 @@ function parseStyle (context, node) {
   var addedNode = parseSimple(null, context, node)
   if (enlarge !== 0) {
     addedNode.enlarge = enlarge
+    addedNode.bold = true
   }
   if (bold) {
     addedNode.bold = true
@@ -296,12 +297,18 @@ var tags = {
       return
     }
 
-    parseSimple(null, context, node)
+    if (node.children) {
+      var newNode = parseNodes(node.children, {
+        options: context.options
+      })
+      if (newNode.children && newNode.children.length > 0) {
+        context.children.push({
+          type: 'div',
+          children: newNode.children
+        })
+      }
+    }
 
-    // A line break after a div ensures that the formatting stays readable
-    context.children.push({
-      type: 'br'
-    })
   },
   'hr': singleNode.bind(null, 'hr'),
   'blockquote': parseSimple.bind(null, 'blockquote'),
@@ -369,28 +376,41 @@ function parseNode (context, node) {
   }
 }
 
-function reduceSameProperties (tokens, parent) {
-  if (tokens.length === 0) {
-    return
+function reduceSameProperties (parent) {
+  if (parent.children.length === 0) {
+    return parent
   }
+  var groupParent
   ['bold', 'underline', 'strike', 'italic', 'href'].forEach(function (prop) {
-    var value = tokens[0][prop]
-    for (var i = 1; i < tokens.length; i++) {
-      if (tokens[i][prop] !== value) {
+    var value = parent.children[0][prop]
+    for (var i = 1; i < parent.children.length; i++) {
+      if (parent.children[i][prop] !== value) {
         return
       }
     }
-    tokens.forEach(function (token) {
+    parent.children.forEach(function (token) {
       delete token[prop]
     })
     if (value !== undefined) {
-      parent[prop] = value
+      if (!groupParent) {
+        if (parent.type !== 'text') {
+          groupParent = {
+            type: 'text',
+            children: parent.children
+          }
+          parent.children = [groupParent]
+        } else {
+          groupParent = parent
+        }
+      }
+      groupParent[prop] = value
     }
   })
+  return parent
 }
 
-function reduceSimpleNodes (tokens, parent) {
-  tokens = tokens.filter(function (token) {
+function reduceSimpleNodes (parent) {
+  parent.children = parent.children.filter(function (token) {
     if (token.type !== 'text') {
       return true
     }
@@ -407,9 +427,9 @@ function reduceSimpleNodes (tokens, parent) {
     return true
   })
   var allText = true
-  tokens.forEach(function (token) {
+  parent.children.forEach(function (token) {
     if (token.children) {
-      token.children = reduceSimpleNodes(token.children, token)
+      token = reduceSimpleNodes(token)
     }
     if (token.type !== 'text') {
       allText = false
@@ -465,15 +485,16 @@ function reduceSimpleNodes (tokens, parent) {
       }
     }
   })
-  if (allText && tokens.length > 1) {
-    reduceSameProperties(tokens, parent)
+  if (allText && parent.children.length > 1) {
+    parent = reduceSameProperties(parent)
   }
-  return tokens.filter(function (token) {
+  parent.children = parent.children.filter(function (token) {
     if (!token.children && token.hasOwnProperty('children')) {
       delete token.children
     }
     return !token.children || token.children.length !== 0 || parent.type === 'tr'
   })
+  return parent
 }
 
 function parseHTML (input) {
@@ -530,13 +551,13 @@ function parseHTML (input) {
 
 module.exports = function (input, options) {
   var htmlNodes = parseHTML(input)
-  var tokens = parseNodes(htmlNodes, {
+  var parseResult = parseNodes(htmlNodes, {
     title: null,
     options: options || {},
     children: []
   })
-  delete tokens.options
-  tokens.children = reduceSimpleNodes(tokens.children, tokens)
-  // console.log(JSON.stringify(tokens, null, 2))
-  return tokens
+  delete parseResult.options
+  parseResult = reduceSimpleNodes(parseResult)
+  // console.log(JSON.stringify(parseResult, null, 2))
+  return parseResult
 }

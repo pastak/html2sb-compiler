@@ -2,14 +2,16 @@
   "title": "This is a fancy titled",
   "children": [
     {
-      "type": "text",
-      "text": "Don't you think?"
+      "type": "div",
+      "children": [
+        {
+          "type": "text",
+          "text": "Don't you think?"
+        }
+      ]
     },
     {
-      "type": "br"
-    },
-    {
-      "type": "text",
+      "type": "div",
       "children": [
         {
           "type": "br"
@@ -17,69 +19,80 @@
       ]
     },
     {
-      "type": "br"
+      "type": "div",
+      "children": [
+        {
+          "type": "text",
+          "text": "Regular Text"
+        }
+      ]
     },
     {
-      "type": "text",
-      "text": "Regular Text"
+      "type": "div",
+      "children": [
+        {
+          "type": "text",
+          "text": "Header 5"
+        }
+      ]
     },
     {
-      "type": "br"
+      "type": "div",
+      "children": [
+        {
+          "type": "text",
+          "enlarge": 1,
+          "bold": true,
+          "text": "Header 4"
+        }
+      ]
     },
     {
-      "type": "text",
-      "text": "Header 5"
+      "type": "div",
+      "children": [
+        {
+          "type": "text",
+          "enlarge": 2,
+          "bold": true,
+          "text": "Header 3"
+        }
+      ]
     },
     {
-      "type": "br"
+      "type": "div",
+      "children": [
+        {
+          "type": "text",
+          "enlarge": 3,
+          "bold": true,
+          "text": "Header 2"
+        }
+      ]
     },
     {
-      "type": "text",
-      "bold": true,
-      "enlarge": 1,
-      "text": "Header 4"
+      "type": "div",
+      "children": [
+        {
+          "type": "text",
+          "enlarge": 4,
+          "bold": true,
+          "text": "Header 1"
+        }
+      ]
     },
     {
-      "type": "br"
+      "type": "div",
+      "children": [
+        {
+          "type": "text",
+          "enlarge": 5,
+          "bold": true,
+          "text": "Header 0"
+        }
+      ]
     },
     {
-      "type": "text",
-      "bold": true,
-      "enlarge": 2,
-      "text": "Header 3"
-    },
-    {
-      "type": "br"
-    },
-    {
-      "type": "text",
-      "bold": true,
-      "enlarge": 3,
-      "text": "Header 2"
-    },
-    {
-      "type": "br"
-    },
-    {
-      "type": "text",
-      "bold": true,
-      "enlarge": 4,
-      "text": "Header 1"
-    },
-    {
-      "type": "br"
-    },
-    {
-      "type": "text",
-      "bold": true,
-      "enlarge": 5,
-      "text": "Header 0"
-    },
-    {
-      "type": "br"
-    },
-    {
-      "type": "text",
+      "type": "div",
       "children": [
         {
           "type": "br"
@@ -87,10 +100,7 @@
       ]
     },
     {
-      "type": "br"
-    },
-    {
-      "type": "text",
+      "type": "div",
       "children": [
         {
           "type": "text",
@@ -135,10 +145,7 @@
       ]
     },
     {
-      "type": "br"
-    },
-    {
-      "type": "text",
+      "type": "div",
       "children": [
         {
           "type": "br"
@@ -146,41 +153,40 @@
       ]
     },
     {
-      "type": "br"
-    },
-    {
-      "type": "text",
+      "type": "div",
       "children": [
         {
           "type": "text",
-          "text": "This is italic text with some"
-        },
-        {
-          "type": "text",
-          "bold": true,
-          "text": "bold"
-        },
-        {
-          "type": "text",
-          "text": "text in-between, maybe"
-        },
-        {
-          "type": "text",
-          "bold": true,
-          "text": "twice"
-        },
-        {
-          "type": "text",
-          "text": "."
+          "children": [
+            {
+              "type": "text",
+              "text": "This is italic text with some"
+            },
+            {
+              "type": "text",
+              "bold": true,
+              "text": "bold"
+            },
+            {
+              "type": "text",
+              "text": "text in-between, maybe"
+            },
+            {
+              "type": "text",
+              "bold": true,
+              "text": "twice"
+            },
+            {
+              "type": "text",
+              "text": "."
+            }
+          ],
+          "italic": true
         }
-      ],
-      "italic": true
+      ]
     },
     {
-      "type": "br"
-    },
-    {
-      "type": "text",
+      "type": "div",
       "children": [
         {
           "type": "br"
@@ -188,41 +194,40 @@
       ]
     },
     {
-      "type": "br"
-    },
-    {
-      "type": "text",
+      "type": "div",
       "children": [
         {
           "type": "text",
-          "text": "This is bold text with some"
-        },
-        {
-          "type": "text",
-          "italic": true,
-          "text": "italic"
-        },
-        {
-          "type": "text",
-          "text": "text in-between, maybe"
-        },
-        {
-          "type": "text",
-          "italic": true,
-          "text": "twice"
-        },
-        {
-          "type": "text",
-          "text": "."
+          "children": [
+            {
+              "type": "text",
+              "text": "This is bold text with some"
+            },
+            {
+              "type": "text",
+              "italic": true,
+              "text": "italic"
+            },
+            {
+              "type": "text",
+              "text": "text in-between, maybe"
+            },
+            {
+              "type": "text",
+              "italic": true,
+              "text": "twice"
+            },
+            {
+              "type": "text",
+              "text": "."
+            }
+          ],
+          "bold": true
         }
-      ],
-      "bold": true
+      ]
     },
     {
-      "type": "br"
-    },
-    {
-      "type": "text",
+      "type": "div",
       "children": [
         {
           "type": "br"
@@ -230,50 +235,91 @@
       ]
     },
     {
-      "type": "br"
-    },
-    {
-      "type": "text",
+      "type": "div",
       "children": [
         {
           "type": "text",
-          "text": "This is underline text with some"
-        },
+          "children": [
+            {
+              "type": "text",
+              "text": "This is underline text with some"
+            },
+            {
+              "type": "text",
+              "bold": true,
+              "text": "bold,"
+            },
+            {
+              "type": "text",
+              "text": "some"
+            },
+            {
+              "type": "text",
+              "italic": true,
+              "text": "italic"
+            },
+            {
+              "type": "text",
+              "text": "and some"
+            },
+            {
+              "type": "text",
+              "strike": true,
+              "text": "strike-through"
+            },
+            {
+              "type": "text",
+              "text": "text."
+            }
+          ],
+          "underline": true
+        }
+      ]
+    },
+    {
+      "type": "div",
+      "children": [
+        {
+          "type": "br"
+        }
+      ]
+    },
+    {
+      "type": "div",
+      "children": [
         {
           "type": "text",
           "bold": true,
-          "text": "bold,"
-        },
-        {
-          "type": "text",
-          "text": "some"
-        },
-        {
-          "type": "text",
-          "italic": true,
-          "text": "italic"
-        },
-        {
-          "type": "text",
-          "text": "and some"
-        },
-        {
-          "type": "text",
+          "underline": true,
           "strike": true,
-          "text": "strike-through"
-        },
+          "italic": true,
+          "text": "Super fancy text 1 order: underline, italic, strike-through, bold"
+        }
+      ]
+    },
+    {
+      "type": "div",
+      "children": [
+        {
+          "type": "br"
+        }
+      ]
+    },
+    {
+      "type": "div",
+      "children": [
         {
           "type": "text",
-          "text": "text."
+          "bold": true,
+          "underline": true,
+          "strike": true,
+          "italic": true,
+          "text": "Super fancy text 2 order: bold, strike through, italic, underline"
         }
-      ],
-      "underline": true
+      ]
     },
     {
-      "type": "br"
-    },
-    {
-      "type": "text",
+      "type": "div",
       "children": [
         {
           "type": "br"
@@ -281,54 +327,7 @@
       ]
     },
     {
-      "type": "br"
-    },
-    {
-      "type": "text",
-      "bold": true,
-      "italic": true,
-      "strike": true,
-      "underline": true,
-      "text": "Super fancy text 1 order: underline, italic, strike-through, bold"
-    },
-    {
-      "type": "br"
-    },
-    {
-      "type": "text",
-      "children": [
-        {
-          "type": "br"
-        }
-      ]
-    },
-    {
-      "type": "br"
-    },
-    {
-      "type": "text",
-      "bold": true,
-      "italic": true,
-      "strike": true,
-      "underline": true,
-      "text": "Super fancy text 2 order: bold, strike through, italic, underline"
-    },
-    {
-      "type": "br"
-    },
-    {
-      "type": "text",
-      "children": [
-        {
-          "type": "br"
-        }
-      ]
-    },
-    {
-      "type": "br"
-    },
-    {
-      "type": "text",
+      "type": "div",
       "children": [
         {
           "type": "text",
@@ -346,10 +345,7 @@
       ]
     },
     {
-      "type": "br"
-    },
-    {
-      "type": "text",
+      "type": "div",
       "children": [
         {
           "type": "br"
@@ -357,32 +353,28 @@
       ]
     },
     {
-      "type": "br"
+      "type": "div",
+      "children": [
+        {
+          "type": "text",
+          "text": "A block of code"
+        }
+      ]
     },
     {
-      "type": "text",
-      "text": "A block of code"
-    },
-    {
-      "type": "br"
-    },
-    {
-      "type": "text",
+      "type": "div",
       "children": [
         {
           "type": "br"
         }
       ]
-    },
-    {
-      "type": "br"
     },
     {
       "type": "code",
       "text": "function myfunction (a, b) {\n  let x = a * 1.08\n  let y = b * 2\n  return x * y\n}"
     },
     {
-      "type": "text",
+      "type": "div",
       "children": [
         {
           "type": "br"
@@ -390,25 +382,21 @@
       ]
     },
     {
-      "type": "br"
+      "type": "div",
+      "children": [
+        {
+          "type": "text",
+          "text": "could be as cool as a checkbox:"
+        }
+      ]
     },
     {
-      "type": "text",
-      "text": "could be as cool as a checkbox:"
-    },
-    {
-      "type": "br"
-    },
-    {
-      "type": "text",
+      "type": "div",
       "children": [
         {
           "type": "br"
         }
       ]
-    },
-    {
-      "type": "br"
     },
     {
       "type": "list",
@@ -457,7 +445,7 @@
       ]
     },
     {
-      "type": "text",
+      "type": "div",
       "children": [
         {
           "type": "br"
@@ -465,25 +453,21 @@
       ]
     },
     {
-      "type": "br"
+      "type": "div",
+      "children": [
+        {
+          "type": "text",
+          "text": "an ordered list"
+        }
+      ]
     },
     {
-      "type": "text",
-      "text": "an ordered list"
-    },
-    {
-      "type": "br"
-    },
-    {
-      "type": "text",
+      "type": "div",
       "children": [
         {
           "type": "br"
         }
       ]
-    },
-    {
-      "type": "br"
     },
     {
       "type": "list",
@@ -504,7 +488,7 @@
       ]
     },
     {
-      "type": "text",
+      "type": "div",
       "children": [
         {
           "type": "br"
@@ -512,14 +496,13 @@
       ]
     },
     {
-      "type": "br"
-    },
-    {
-      "type": "text",
-      "text": "or an unordered list"
-    },
-    {
-      "type": "br"
+      "type": "div",
+      "children": [
+        {
+          "type": "text",
+          "text": "or an unordered list"
+        }
+      ]
     },
     {
       "type": "list",
@@ -590,7 +573,7 @@
       ]
     },
     {
-      "type": "text",
+      "type": "div",
       "children": [
         {
           "type": "br"
@@ -598,10 +581,7 @@
       ]
     },
     {
-      "type": "br"
-    },
-    {
-      "type": "text",
+      "type": "div",
       "children": [
         {
           "type": "text",
@@ -619,10 +599,7 @@
       ]
     },
     {
-      "type": "br"
-    },
-    {
-      "type": "text",
+      "type": "div",
       "children": [
         {
           "type": "br"
@@ -630,17 +607,16 @@
       ]
     },
     {
-      "type": "br"
+      "type": "div",
+      "children": [
+        {
+          "type": "text",
+          "text": "Two images, attached:"
+        }
+      ]
     },
     {
-      "type": "text",
-      "text": "Two images, attached:"
-    },
-    {
-      "type": "br"
-    },
-    {
-      "type": "text",
+      "type": "div",
       "children": [
         {
           "type": "br"
@@ -648,10 +624,7 @@
       ]
     },
     {
-      "type": "br"
-    },
-    {
-      "type": "text",
+      "type": "div",
       "children": [
         {
           "type": "br"
@@ -659,24 +632,25 @@
       ]
     },
     {
-      "type": "br"
+      "type": "div",
+      "children": [
+        {
+          "type": "img",
+          "src": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAA"
+        }
+      ]
     },
     {
-      "type": "img",
-      "src": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAA"
+      "type": "div",
+      "children": [
+        {
+          "type": "img",
+          "src": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAs"
+        }
+      ]
     },
     {
-      "type": "br"
-    },
-    {
-      "type": "img",
-      "src": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAs"
-    },
-    {
-      "type": "br"
-    },
-    {
-      "type": "text",
+      "type": "div",
       "children": [
         {
           "type": "br"
@@ -684,17 +658,16 @@
       ]
     },
     {
-      "type": "br"
+      "type": "div",
+      "children": [
+        {
+          "type": "text",
+          "text": "And a table"
+        }
+      ]
     },
     {
-      "type": "text",
-      "text": "And a table"
-    },
-    {
-      "type": "br"
-    },
-    {
-      "type": "text",
+      "type": "div",
       "children": [
         {
           "type": "br"
@@ -702,18 +675,12 @@
       ]
     },
     {
-      "type": "br"
-    },
-    {
-      "type": "text",
+      "type": "div",
       "children": [
         {
           "type": "br"
         }
       ]
-    },
-    {
-      "type": "br"
     },
     {
       "type": "table",
@@ -725,11 +692,13 @@
               "type": "td",
               "children": [
                 {
-                  "type": "text",
-                  "text": "whos"
-                },
-                {
-                  "type": "br"
+                  "type": "div",
+                  "children": [
+                    {
+                      "type": "text",
+                      "text": "whos"
+                    }
+                  ]
                 }
               ]
             },
@@ -737,12 +706,14 @@
               "type": "td",
               "children": [
                 {
-                  "type": "text",
-                  "italic": true,
-                  "text": "house"
-                },
-                {
-                  "type": "br"
+                  "type": "div",
+                  "children": [
+                    {
+                      "type": "text",
+                      "italic": true,
+                      "text": "house"
+                    }
+                  ]
                 }
               ]
             },
@@ -750,12 +721,14 @@
               "type": "td",
               "children": [
                 {
-                  "type": "text",
-                  "underline": true,
-                  "text": "runs"
-                },
-                {
-                  "type": "br"
+                  "type": "div",
+                  "children": [
+                    {
+                      "type": "text",
+                      "underline": true,
+                      "text": "runs"
+                    }
+                  ]
                 }
               ]
             }
@@ -768,12 +741,14 @@
               "type": "td",
               "children": [
                 {
-                  "type": "text",
-                  "bold": true,
-                  "text": "house"
-                },
-                {
-                  "type": "br"
+                  "type": "div",
+                  "children": [
+                    {
+                      "type": "text",
+                      "bold": true,
+                      "text": "house"
+                    }
+                  ]
                 }
               ]
             },
@@ -781,11 +756,13 @@
               "type": "td",
               "children": [
                 {
-                  "type": "text",
-                  "text": "I"
-                },
-                {
-                  "type": "br"
+                  "type": "div",
+                  "children": [
+                    {
+                      "type": "text",
+                      "text": "I"
+                    }
+                  ]
                 }
               ]
             },
@@ -793,12 +770,14 @@
               "type": "td",
               "children": [
                 {
-                  "type": "text",
-                  "href": "http://test.com",
-                  "text": "said"
-                },
-                {
-                  "type": "br"
+                  "type": "div",
+                  "children": [
+                    {
+                      "type": "text",
+                      "href": "http://test.com",
+                      "text": "said"
+                    }
+                  ]
                 }
               ]
             }
@@ -811,15 +790,12 @@
               "type": "td",
               "children": [
                 {
-                  "type": "text",
+                  "type": "div",
                   "children": [
                     {
                       "type": "br"
                     }
                   ]
-                },
-                {
-                  "type": "br"
                 }
               ]
             },
@@ -827,15 +803,12 @@
               "type": "td",
               "children": [
                 {
-                  "type": "text",
+                  "type": "div",
                   "children": [
                     {
                       "type": "br"
                     }
                   ]
-                },
-                {
-                  "type": "br"
                 }
               ]
             },
@@ -843,15 +816,12 @@
               "type": "td",
               "children": [
                 {
-                  "type": "text",
+                  "type": "div",
                   "children": [
                     {
                       "type": "br"
                     }
                   ]
-                },
-                {
-                  "type": "br"
                 }
               ]
             }
@@ -864,15 +834,12 @@
               "type": "td",
               "children": [
                 {
-                  "type": "text",
+                  "type": "div",
                   "children": [
                     {
                       "type": "br"
                     }
                   ]
-                },
-                {
-                  "type": "br"
                 }
               ]
             },
@@ -880,11 +847,13 @@
               "type": "td",
               "children": [
                 {
-                  "type": "text",
-                  "text": "whos"
-                },
-                {
-                  "type": "br"
+                  "type": "div",
+                  "children": [
+                    {
+                      "type": "text",
+                      "text": "whos"
+                    }
+                  ]
                 }
               ]
             },
@@ -902,7 +871,7 @@
       ]
     },
     {
-      "type": "text",
+      "type": "div",
       "children": [
         {
           "type": "br"
@@ -910,17 +879,16 @@
       ]
     },
     {
-      "type": "br"
+      "type": "div",
+      "children": [
+        {
+          "type": "text",
+          "text": "Some horizontal spacer"
+        }
+      ]
     },
     {
-      "type": "text",
-      "text": "Some horizontal spacer"
-    },
-    {
-      "type": "br"
-    },
-    {
-      "type": "text",
+      "type": "div",
       "children": [
         {
           "type": "br"
@@ -928,24 +896,18 @@
       ]
     },
     {
-      "type": "br"
-    },
-    {
-      "type": "text",
+      "type": "div",
       "children": [
         {
           "type": "br"
         }
       ]
-    },
-    {
-      "type": "br"
     },
     {
       "type": "hr"
     },
     {
-      "type": "text",
+      "type": "div",
       "children": [
         {
           "type": "br"
@@ -953,56 +915,60 @@
       ]
     },
     {
-      "type": "br"
-    },
-    {
-      "type": "text",
-      "text": "And some more text..."
-    },
-    {
-      "type": "br"
-    },
-    {
-      "type": "text",
-      "text": "Lets align it right"
-    },
-    {
-      "type": "br"
-    },
-    {
-      "type": "text",
-      "text": "and align it center"
-    },
-    {
-      "type": "br"
-    },
-    {
-      "type": "text",
-      "children": [
-        {
-          "type": "br"
-        }
-      ]
-    },
-    {
-      "type": "br"
-    },
-    {
-      "type": "text",
-      "text": "Indent a little"
-    },
-    {
-      "type": "br"
-    },
-    {
-      "type": "text",
+      "type": "div",
       "children": [
         {
           "type": "text",
-          "text": "A little bit of this, a little bit of that, a little bit of everything lets me"
-        },
+          "text": "And some more text..."
+        }
+      ]
+    },
+    {
+      "type": "div",
+      "children": [
+        {
+          "type": "text",
+          "text": "Lets align it right"
+        }
+      ]
+    },
+    {
+      "type": "div",
+      "children": [
+        {
+          "type": "text",
+          "text": "and align it center"
+        }
+      ]
+    },
+    {
+      "type": "div",
+      "children": [
         {
           "type": "br"
+        }
+      ]
+    },
+    {
+      "type": "div",
+      "children": [
+        {
+          "type": "text",
+          "text": "Indent a little"
+        }
+      ]
+    },
+    {
+      "type": "text",
+      "children": [
+        {
+          "type": "div",
+          "children": [
+            {
+              "type": "text",
+              "text": "A little bit of this, a little bit of that, a little bit of everything lets me"
+            }
+          ]
         }
       ],
       "blockquote": 1
@@ -1011,17 +977,19 @@
       "type": "text",
       "children": [
         {
-          "type": "text",
-          "text": "Indent a little further"
-        },
-        {
-          "type": "br"
+          "type": "div",
+          "children": [
+            {
+              "type": "text",
+              "text": "Indent a little further"
+            }
+          ]
         }
       ],
       "blockquote": 2
     },
     {
-      "type": "text",
+      "type": "div",
       "children": [
         {
           "type": "br"
@@ -1029,10 +997,7 @@
       ]
     },
     {
-      "type": "br"
-    },
-    {
-      "type": "text",
+      "type": "div",
       "children": [
         {
           "type": "text",
@@ -1053,10 +1018,7 @@
       ]
     },
     {
-      "type": "br"
-    },
-    {
-      "type": "text",
+      "type": "div",
       "children": [
         {
           "type": "br"
@@ -1064,10 +1026,7 @@
       ]
     },
     {
-      "type": "br"
-    },
-    {
-      "type": "text",
+      "type": "div",
       "children": [
         {
           "type": "text",
@@ -1080,6 +1039,7 @@
         {
           "type": "text",
           "enlarge": 1,
+          "bold": true,
           "text": "size change?"
         },
         {
@@ -1091,9 +1051,6 @@
           "text": "be changed too"
         }
       ]
-    },
-    {
-      "type": "br"
     }
   ],
   "tags": [
