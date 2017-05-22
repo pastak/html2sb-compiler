@@ -1,0 +1,11 @@
+{
+  "title": "This is a fancy titled",
+  "tags": ["in", "inaka", "house", "fancy"],
+  "children": [
+    {
+      "type": "text",
+      "bold": true,
+      "text": "Some text"
+    }
+  ]
+}
