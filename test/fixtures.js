@@ -31,6 +31,7 @@ test('fixtures', function (t) {
     'header',
     'hr',
     'table',
+    'table-in-div',
     'complex',
     'links',
     'text-styles'

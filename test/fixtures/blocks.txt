@@ -1,7 +1,6 @@
 And some more text...
 Lets align it right
 and align it center
-
 Indent a little
 > A little bit of this, a little bit of that, a little bit of everything lets me
 

@@ -94,6 +94,13 @@ var stringifier = {
   'hr': function (node, line) {
     return '[/icons/hr.icon]'
   },
+  'div': function (node, line) {
+    var result = []
+    if (node.children) {
+      result = stringifyNodes(node, result)
+    }
+    return result
+  },
   'table': function (node, line) {
     return 'table:_\n' +
       node.children.map(function (row) {
@@ -124,18 +131,14 @@ var stringifier = {
   }
 }
 
-function stringify (child, line) {
+function stringifyNode (child, line) {
   return stringifier[child.type](child, line)
 }
 
-module.exports = function (tokens) {
-  var result = []
-  if (tokens.title) {
-    result.push(tokens.title)
-  }
+function stringifyNodes(tokens, result) {
   var line = []
   tokens.children.forEach(function (child) {
-    var block = stringify(child, line)
+    var block = stringifyNode(child, line)
     if (block === NO_LINE_BREAK) {
       return
     }
@@ -146,7 +149,9 @@ module.exports = function (tokens) {
       }
       line = []
     }
-    if (block !== SOFT_LINE_BREAK) {
+    if (Array.isArray(block)) {
+      result = result.concat(block)
+    } else if (block !== SOFT_LINE_BREAK) {
       result.push(block)
       result.push('')
     }
@@ -154,6 +159,15 @@ module.exports = function (tokens) {
   if (line.length > 0) {
     result.push(line.join(' '))
   }
+  return result
+}
+
+module.exports = function (tokens) {
+  var result = []
+  if (tokens.title) {
+    result.push(tokens.title)
+  }
+  result = stringifyNodes(tokens, result)
   if (tokens.tags) {
     result.push('')
     result.push(tokens.tags.map(function (tag) {
