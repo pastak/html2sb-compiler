@@ -18,7 +18,7 @@ test('fixtures', function (t) {
     const expectedOutput = readFixture(file + '.txt')
     // console.log(JSON.stringify(tokens, null, 2))
     t.deepEqual(tokens, expectedTokens, file + '#tokens')
-    t.equal(sb, expectedOutput, file + '#output')
+    t.equal((sb.title ? sb.title + '\n' : '') + sb.lines.join('\n') + '\n', expectedOutput, file + '#output')
   }
 
   [

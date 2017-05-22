@@ -1,4 +1,5 @@
 'use strict'
+var trim = require('lodash.trim')
 var NO_LINE_BREAK = false
 var SOFT_LINE_BREAK = true
 
@@ -164,9 +165,6 @@ function stringifyNodes(tokens, result) {
 
 module.exports = function (tokens) {
   var result = []
-  if (tokens.title) {
-    result.push(tokens.title)
-  }
   result = stringifyNodes(tokens, result)
   if (tokens.tags) {
     result.push('')
@@ -186,9 +184,12 @@ module.exports = function (tokens) {
     }
     return true
   })
-  // console.log(result)
-  if (result[result.length - 1] !== '') {
-    result.push('')
+  var last = result.length - 1
+  while ((result[last] === '' || result[last] === null) && last > 0) {
+    last -= 1
   }
-  return result.join('\n')
+  return {
+    title: tokens.title || '',
+    lines: result.slice(0, last + 1)
+  }
 }
