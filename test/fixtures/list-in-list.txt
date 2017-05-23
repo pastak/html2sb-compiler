@@ -1,3 +1,4 @@
+List ([* France] B..., Italy Parmeg..., Norway Nothi...)
 	1. [* France]
 		Baguette
 		Camenbert

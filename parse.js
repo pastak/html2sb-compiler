@@ -182,7 +182,7 @@ var tags = {
             }
           })
           if (/^image\/(png|jpeg|gif)$/.test(resource.mime)) {
-            var raw = new Buffer(resource.encoded, 'base64')
+            var raw = Buffer.from(resource.encoded, 'base64')
             var hash = md5.fromBytes(raw.toString('latin1')).toHex()
             context.options.resources[hash] = {
               type: 'img',
@@ -308,7 +308,6 @@ var tags = {
         })
       }
     }
-
   },
   'hr': singleNode.bind(null, 'hr'),
   'blockquote': parseSimple.bind(null, 'blockquote'),

@@ -1,9 +1,8 @@
 'use strict'
-var trim = require('lodash.trim')
 var NO_LINE_BREAK = false
 var SOFT_LINE_BREAK = true
 
-function toSimpleText (node) {
+function toSimpleText (node, noFormatting) {
   if (node.type === 'img') {
     if (node.href) {
       return '[' + node.href + ' ' + node.src + ']'
@@ -136,7 +135,7 @@ function stringifyNode (child, line) {
   return stringifier[child.type](child, line)
 }
 
-function stringifyNodes(tokens, result) {
+function stringifyNodes (tokens, result) {
   var line = []
   tokens.children.forEach(function (child) {
     var block = stringifyNode(child, line)
@@ -163,7 +162,7 @@ function stringifyNodes(tokens, result) {
   return result
 }
 
-module.exports = function (tokens) {
+function toScrapbox (tokens) {
   var result = []
   result = stringifyNodes(tokens, result)
   if (tokens.tags) {
@@ -189,7 +188,10 @@ module.exports = function (tokens) {
     last -= 1
   }
   return {
-    title: tokens.title || '',
+    title: tokens.title,
     lines: result.slice(0, last + 1)
   }
 }
+toScrapbox.toSimpleText = toSimpleText
+
+module.exports = toScrapbox
