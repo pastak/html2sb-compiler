@@ -558,6 +558,5 @@ module.exports = function (input, options) {
   })
   delete parseResult.options
   parseResult = reduceSimpleNodes(parseResult)
-  // console.log(JSON.stringify(parseResult, null, 2))
   return parseResult
 }
