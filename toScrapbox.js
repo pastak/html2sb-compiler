@@ -207,7 +207,13 @@ function toScrapbox (tokens) {
   }
   return {
     title: tokens.title,
-    lines: result.slice(0, last + 1)
+    lines: result.slice(0, last + 1).reduce(function (lines, line) {
+      if (line.indexOf('\n') !== -1) {
+        return lines.concat(line.split('\n'))
+      }
+      lines.push(line)
+      return lines
+    }, [])
   }
 }
 toScrapbox.toSimpleText = toSimpleText
