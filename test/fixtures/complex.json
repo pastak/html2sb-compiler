@@ -636,8 +636,8 @@
       "type": "div",
       "children": [
         {
-          "type": "img",
-          "src": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAA"
+          "type": "reference",
+          "hash": "f134ab81b7ccf9f65805fc5e5401d4e2"
         }
       ]
     },
@@ -645,8 +645,8 @@
       "type": "div",
       "children": [
         {
-          "type": "img",
-          "src": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAs"
+          "type": "reference",
+          "hash": "7340319ab17e40713c5571f4cb6a3653"
         }
       ]
     },
@@ -1059,5 +1059,17 @@
     "inaka",
     "house",
     "fancy"
-  ]
+  ],
+  "resources": {
+    "f134ab81b7ccf9f65805fc5e5401d4e2": {
+      "type": "img",
+      "mime": "image/png",
+      "data": "iVBORw0KGgoAAAANSUhEUgAA"
+    },
+    "7340319ab17e40713c5571f4cb6a3653": {
+      "type": "img",
+      "mime": "image/png",
+      "data": "iVBORw0KGgoAAAANSUhEUgAAAs"
+    }
+  }
 }

@@ -4,10 +4,16 @@ var SOFT_LINE_BREAK = true
 
 function toSimpleText (node, noFormatting) {
   if (node.type === 'img') {
-    if (node.href) {
-      return '[' + node.href + ' ' + node.src + ']'
+    var src = ''
+    if (node.src) {
+      src = node.src
+    } else {
+      src = 'data:' + node.mime + ';base64,' + node.data
     }
-    return '[' + node.src + ']'
+    if (node.href) {
+      return '[' + node.href + ' ' + src + ']'
+    }
+    return '[' + src + ']'
   }
 
   var before = ''
@@ -49,7 +55,7 @@ function toSimpleText (node, noFormatting) {
   return inner
 }
 
-function processList (node, line, indent) {
+function processList (node, line, resources, indent) {
   if (!indent) {
     indent = ''
   }
@@ -77,7 +83,7 @@ function processList (node, line, indent) {
         data = indent + data + '\n'
       }
       if (lastEntry) {
-        data = data + processList(lastEntry, null, indent) + '\n'
+        data = data + processList(lastEntry, null, resources, indent) + '\n'
       }
       return data
     })
@@ -94,10 +100,10 @@ var stringifier = {
   'hr': function (node, line) {
     return '[/icons/hr.icon]'
   },
-  'div': function (node, line) {
+  'div': function (node, line, resources) {
     var result = []
     if (node.children) {
-      result = stringifyNodes(node, result)
+      result = stringifyNodes(node, result, resources)
     }
     return result
   },
@@ -128,23 +134,29 @@ var stringifier = {
     }
     line.push(toSimpleText(node))
     return NO_LINE_BREAK
+  },
+  'reference': function (node, line, resources) {
+    if (resources) {
+      return stringifyNode(resources[node.hash], line, resources)
+    }
+    return
   }
 }
 
-function stringifyNode (child, line) {
+function stringifyNode (child, line, resources) {
   var nodeStringifier = stringifier[child.type]
   if (!nodeStringifier) {
     console.warn('Unknown stringifier for node type: ' + child.type)
     console.log(child)
     return
   }
-  return nodeStringifier(child, line)
+  return nodeStringifier(child, line, resources)
 }
 
-function stringifyNodes (tokens, result) {
+function stringifyNodes (tokens, result, resources) {
   var line = []
   tokens.children.forEach(function (child) {
-    var block = stringifyNode(child, line)
+    var block = stringifyNode(child, line, resources)
     if (block === NO_LINE_BREAK) {
       return
     }
@@ -170,7 +182,7 @@ function stringifyNodes (tokens, result) {
 
 function toScrapbox (tokens) {
   var result = []
-  result = stringifyNodes(tokens, result)
+  result = stringifyNodes(tokens, result, tokens.resources)
   if (tokens.tags) {
     result.push('')
     result.push(tokens.tags.map(function (tag) {

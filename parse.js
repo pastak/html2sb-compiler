@@ -155,7 +155,6 @@ var tags = {
   'note': function (context, node) {
     if (context.options && context.options.evernote) {
       var content
-      var resources = {}
       var pageContext = {
         type: 'page',
         options: context.options,
@@ -187,21 +186,19 @@ var tags = {
           if (/^image\/(png|jpeg|gif)$/.test(resource.mime)) {
             var raw = Buffer.from(resource.encoded, 'base64')
             var hash = md5.fromBytes(raw.toString('latin1')).toHex()
-            resources[hash] = {
+            if (!pageContext.resources) {
+              pageContext.resources = {}
+            }
+            pageContext.resources[hash] = {
               type: 'img',
-              src: 'data:' + resource.mime + ';base64,' + resource.encoded
+              mime: resource.mime,
+              data: resource.encoded
             }
           }
         }
       })
       if (content) {
         var contentNodes = parseHTML(content)
-        if (!context.options.resources) {
-          context.options.resources = {}
-        }
-        Object.keys(resources).forEach(function (hash) {
-          context.options.resources[hash] = resources[hash]
-        })
         parseNode(pageContext, {
           children: contentNodes
         })
@@ -211,11 +208,11 @@ var tags = {
     }
   },
   'en-media': function (context, node) {
-    if (node.attribs && context.options.resources && context.options.evernote) {
-      var resource = context.options.resources[node.attribs.hash]
-      if (resource) {
-        context.children.push(resource)
-      }
+    if (node.attribs && context.options.evernote) {
+      context.children.push({
+        type: 'reference',
+        hash: node.attribs.hash
+      })
     }
   },
   'br': singleNode.bind(null, 'br'),
