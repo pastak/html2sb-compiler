@@ -1,5 +1,6 @@
 {
   "title": "This is a fancy titled",
+  "type": "page",
   "children": [
     {
       "type": "div",

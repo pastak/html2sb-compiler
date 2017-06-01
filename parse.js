@@ -155,17 +155,20 @@ var tags = {
   'note': function (context, node) {
     if (context.options && context.options.evernote) {
       var content
-      if (!context.options.resources) {
-        context.options.resources = {}
+      var resources = {}
+      var pageContext = {
+        type: 'page',
+        options: context.options,
+        children: []
       }
       node.children.forEach(function (child) {
         if (child.tagName === 'title') {
-          context.title = firstChildContent(child)
+          pageContext.title = firstChildContent(child)
         } else if (child.tagName === 'tag') {
-          if (!context.tags) {
-            context.tags = []
+          if (!pageContext.tags) {
+            pageContext.tags = []
           }
-          context.tags.push(firstChildContent(child))
+          pageContext.tags.push(firstChildContent(child))
         } else if (child.tagName === 'content') {
           content = firstChildContent(child)
         } else if (child.tagName === 'resource') {
@@ -184,7 +187,7 @@ var tags = {
           if (/^image\/(png|jpeg|gif)$/.test(resource.mime)) {
             var raw = Buffer.from(resource.encoded, 'base64')
             var hash = md5.fromBytes(raw.toString('latin1')).toHex()
-            context.options.resources[hash] = {
+            resources[hash] = {
               type: 'img',
               src: 'data:' + resource.mime + ';base64,' + resource.encoded
             }
@@ -193,9 +196,17 @@ var tags = {
       })
       if (content) {
         var contentNodes = parseHTML(content)
-        parseNode(context, {
+        if (!context.options.resources) {
+          context.options.resources = {}
+        }
+        Object.keys(resources).forEach(function (hash) {
+          context.options.resources[hash] = resources[hash]
+        })
+        parseNode(pageContext, {
           children: contentNodes
         })
+        delete pageContext.options
+        context.children.push(pageContext)
       }
     }
   },
@@ -557,5 +568,22 @@ module.exports = function (input, options) {
   })
   delete parseResult.options
   parseResult = reduceSimpleNodes(parseResult)
-  return parseResult
+  if (parseResult.children.length === 0) {
+    return []
+  }
+  var allPages = true
+  if (parseResult.type === 'page') {
+    allPages = false
+  } else {
+    for (var i = 0; i < parseResult.children.length; i++) {
+      if (parseResult.children[i].type !== 'page') {
+        allPages = false
+        break
+      }
+    }
+  }
+  if (!allPages) {
+    return [parseResult]
+  }
+  return parseResult.children
 }

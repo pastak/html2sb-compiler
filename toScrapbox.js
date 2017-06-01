@@ -132,7 +132,13 @@ var stringifier = {
 }
 
 function stringifyNode (child, line) {
-  return stringifier[child.type](child, line)
+  var nodeStringifier = stringifier[child.type]
+  if (!nodeStringifier) {
+    console.warn('Unknown stringifier for node type: ' + child.type)
+    console.log(child)
+    return
+  }
+  return nodeStringifier(child, line)
 }
 
 function stringifyNodes (tokens, result) {
