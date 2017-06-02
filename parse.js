@@ -28,7 +28,7 @@ function parseSimple (variant, context, node) {
   // should be treated differently: the ul should become a child of the former
   // list entry.
   if (context.type === 'list' && (node.tagName === 'ol' || node.tagName === 'ul')) {
-    var pos = context.children.length -1
+    var pos = context.children.length - 1
     var formerLi
     // There can - and likely will - be spaces, and line breaks between the list
     // nodes so we need to search backwards for the best match
