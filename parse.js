@@ -31,7 +31,7 @@ function parseSimple (variant, context, node) {
     var pos = context.children.length -1
     var formerLi
     // There can - and likely will - be spaces, and line breaks between the list
-    // nodes so we need to search backwards for the best match 
+    // nodes so we need to search backwards for the best match
     do {
       formerLi = context.children[pos]
       pos--
@@ -46,6 +46,9 @@ function parseSimple (variant, context, node) {
     } else if (!formerLi.children) {
       formerLi.children = []
     }
+    formerLi.children.push({
+      type: 'br'
+    })
     formerLi.children.push({
       type: 'list',
       variant: node.tagName,

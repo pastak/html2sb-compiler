@@ -14,6 +14,9 @@
               "text": "France"
             },
             {
+              "type": "br"
+            },
+            {
               "type": "list",
               "variant": "ul",
               "children": [
@@ -46,6 +49,9 @@
               ]
             },
             {
+              "type": "br"
+            },
+            {
               "type": "list",
               "variant": "ul",
               "children": [
@@ -73,6 +79,9 @@
               "text": "Norway"
             },
             {
+              "type": "br"
+            },
+            {
               "type": "list",
               "variant": "ul",
               "children": [
@@ -91,6 +100,125 @@
                 {
                   "type": "text",
                   "text": "mind"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "div",
+      "children": [
+        {
+          "type": "list",
+          "variant": "ul",
+          "children": [
+            {
+              "type": "text",
+              "text": "list item"
+            },
+            {
+              "type": "text",
+              "children": [
+                {
+                  "type": "text",
+                  "text": "level1"
+                },
+                {
+                  "type": "br"
+                },
+                {
+                  "type": "list",
+                  "variant": "ul",
+                  "children": [
+                    {
+                      "type": "text",
+                      "text": "level2"
+                    },
+                    {
+                      "type": "list",
+                      "variant": "ul",
+                      "children": [
+                        {
+                          "type": "text",
+                          "children": [
+                            {
+                              "type": "br"
+                            },
+                            {
+                              "type": "list",
+                              "variant": "ul",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "text": "level4"
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "div",
+          "children": [
+            {
+              "type": "list",
+              "variant": "ol",
+              "children": [
+                {
+                  "type": "text",
+                  "text": "ordered list"
+                },
+                {
+                  "type": "text",
+                  "children": [
+                    {
+                      "type": "text",
+                      "text": "second"
+                    },
+                    {
+                      "type": "br"
+                    },
+                    {
+                      "type": "list",
+                      "variant": "ol",
+                      "children": [
+                        {
+                          "type": "text",
+                          "text": "level2"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "br"
+                    },
+                    {
+                      "type": "list",
+                      "variant": "ul",
+                      "children": [
+                        {
+                          "type": "text",
+                          "text": "non ordered"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "div",
+              "children": [
+                {
+                  "type": "br"
                 }
               ]
             }
