@@ -232,6 +232,9 @@ var tags = {
       })
       if (content) {
         var contentNodes = parseHTML(content)
+        if (pageContext.tags) {
+          pageContext.tags = pageContext.tags.sort()
+        }
         parseNode(pageContext, {
           children: contentNodes
         })
