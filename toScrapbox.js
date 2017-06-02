@@ -139,7 +139,6 @@ var stringifier = {
     if (resources) {
       return stringifyNode(resources[node.hash], line, resources)
     }
-    return
   }
 }
 
