@@ -71,10 +71,12 @@ function processList (node, line, indent) {
         checked: listEntry.checked,
         children: children
       })
-      if (node.variant === 'ol') {
-        data = indent + (nr + 1) + '. ' + data + '\n'
-      } else {
-        data = indent + data + '\n'
+      if (data !== '') {
+        if (node.variant === 'ol') {
+          data = indent + (nr + 1) + '. ' + data + '\n'
+        } else {
+          data = indent + data + '\n'
+        }
       }
       if (lastEntry) {
         data = data + processList(lastEntry, null, indent) + '\n'

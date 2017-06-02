@@ -1,4 +1,3 @@
-listing testcase
 	list item
 	level1
 		level2

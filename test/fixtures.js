@@ -40,7 +40,8 @@ test('fixtures', function (t) {
     'complex',
     'links',
     'text-styles',
-    'list-broken-inheritance'
+    'list-skipped-inheritance',
+    'list-wrong-inheritance'
   ].forEach(testFixture)
   t.end()
 })
