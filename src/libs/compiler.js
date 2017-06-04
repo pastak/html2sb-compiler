@@ -27,6 +27,7 @@ export default class {
     let result = ''
     if (node.type === 'text') return node.data
     if (node.type === 'directive') return ''
+    if (node.type === 'style') return ''
     switch (node.name) {
       case 'title':
         this.metas.title = this.compile(node.children).result
