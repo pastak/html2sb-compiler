@@ -23,7 +23,40 @@ function parseSimple (variant, context, node) {
   if (!context.children) {
     context.children = []
   }
-  context.children.push(result)
+
+  // Lists with broken inheritance (an ul inside a ul, instead of a li)
+  // should be treated differently: the ul should become a child of the former
+  // list entry.
+  if (context.type === 'list' && (node.tagName === 'ol' || node.tagName === 'ul')) {
+    var pos = context.children.length - 1
+    var formerLi
+    // There can - and likely will - be spaces, and line breaks between the list
+    // nodes so we need to search backwards for the best match
+    do {
+      formerLi = context.children[pos]
+      pos--
+    } while ((!formerLi || !formerLi.children) && pos > -1)
+    // If there is none, well, let us create one...
+    if (!formerLi) {
+      formerLi = {
+        type: 'text',
+        children: []
+      }
+      context.children.push(formerLi)
+    } else if (!formerLi.children) {
+      formerLi.children = []
+    }
+    formerLi.children.push({
+      type: 'br'
+    })
+    formerLi.children.push({
+      type: 'list',
+      variant: node.tagName,
+      children: result.children
+    })
+  } else {
+    context.children.push(result)
+  }
   return result
 }
 
@@ -182,7 +215,7 @@ var tags = {
             }
           })
           if (/^image\/(png|jpeg|gif)$/.test(resource.mime)) {
-            var raw = new Buffer(resource.encoded, 'base64')
+            var raw = Buffer.from(resource.encoded, 'base64')
             var hash = md5.fromBytes(raw.toString('latin1')).toHex()
             context.options.resources[hash] = {
               type: 'img',
@@ -308,7 +341,6 @@ var tags = {
         })
       }
     }
-
   },
   'hr': singleNode.bind(null, 'hr'),
   'blockquote': parseSimple.bind(null, 'blockquote'),
@@ -558,6 +590,5 @@ module.exports = function (input, options) {
   })
   delete parseResult.options
   parseResult = reduceSimpleNodes(parseResult)
-  // console.log(JSON.stringify(parseResult, null, 2))
   return parseResult
 }
