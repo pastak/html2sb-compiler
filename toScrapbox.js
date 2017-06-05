@@ -3,6 +3,9 @@ var NO_LINE_BREAK = false
 var SOFT_LINE_BREAK = true
 
 function toSimpleText (node, noFormatting) {
+  if (node.type === 'list') {
+    return '\n' + processList(node)
+  }
   if (node.type === 'img') {
     var src = ''
     if (node.src) {
@@ -55,7 +58,7 @@ function toSimpleText (node, noFormatting) {
   return inner
 }
 
-function processList (node, line, resources, indent) {
+function processList (node, _, _, indent) {
   if (!indent) {
     indent = ''
   }
@@ -77,13 +80,23 @@ function processList (node, line, resources, indent) {
         checked: listEntry.checked,
         children: children
       })
-      if (node.variant === 'ol') {
-        data = indent + (nr + 1) + '. ' + data + '\n'
-      } else {
-        data = indent + data + '\n'
+      if (data !== '') {
+        var lines = data.split('\n').map(function (line, index) {
+          if (index === 0 && node.variant === 'ol') {
+            return indent + (nr + 1) + '. ' + line
+          }
+          return indent + line
+        }).filter(function (line) {
+          return !/^\s*$/.test(line)
+        })
+        if (lines.length === 0) {
+          data = ''
+        } else {
+          data = lines.join('\n') + '\n'
+        }
       }
       if (lastEntry) {
-        data = data + processList(lastEntry, null, resources, indent) + '\n'
+        data = data + processList(lastEntry, null, null, indent) + '\n'
       }
       return data
     })
