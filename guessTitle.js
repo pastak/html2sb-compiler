@@ -70,7 +70,7 @@ function getTemplate (parent) {
         if (base.children.length > 0 && base.children[0].children) {
           userTitle = base.children.map(function (token) {
             var max = 15
-            var text = toSimpleText(token)
+            var text = toSimpleText(token).replace(/[\t\n]/ig, '')
             if (text.length > max) {
               text = text.substr(0, max - 3) + '...'
             }

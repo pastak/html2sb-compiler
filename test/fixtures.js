@@ -39,7 +39,9 @@ test('fixtures', function (t) {
     'table-in-div',
     'complex',
     'links',
-    'text-styles'
+    'text-styles',
+    'list-skipped-inheritance',
+    'list-wrong-inheritance'
   ].forEach(testFixture)
   t.end()
 })
