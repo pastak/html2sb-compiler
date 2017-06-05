@@ -1,4 +1,4 @@
 This is a fancy titled
 [* Some text]
 
-#in #inaka #house #fancy
+#fancy #house #in #inaka
