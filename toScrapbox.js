@@ -58,7 +58,7 @@ function toSimpleText (node, noFormatting) {
   return inner
 }
 
-function processList (node, _, _, indent) {
+function processList (node, _, __, indent) {
   if (!indent) {
     indent = ''
   }
